@@ -6,15 +6,19 @@ class LabeledModifiedGraph(Scene):
     l = '\n'.join(l)
     queue2 = Text(f'Queue:\n{l}', font_size=24)
     queue2.next_to(graph, RIGHT)
-    queue2.shift(2 * UP)
-    self.play(ApplyMethod(self.queue.become, queue2))
+    queue2.to_edge(UP)
+    queue2.shift(DOWN)
+    self.play(FadeOut(self.queue), FadeIn(queue2))
+    self.queue = queue2
     self.wait(0.1)
 
   def change_paths(self, graph, text):
     paths2 = Text('Paths:\n' + text, font_size=24)
     paths2.next_to(graph, RIGHT)
-    paths2.shift(DOWN)
-    self.play(ApplyMethod(self.paths.become, paths2))
+    paths2.to_edge(UP)
+    paths2.shift(3 * DOWN)
+    self.play(FadeOut(self.paths), FadeIn(paths2))
+    self.paths = paths2
     self.wait(0.1)
 
   def construct(self):
@@ -100,14 +104,16 @@ S ⟶ 4
 
     self.queue = Text('Queue:\nS', font_size=24)
     self.queue.next_to(graph, RIGHT)
-    self.queue.shift(2 * UP)
+    self.queue.to_edge(UP)
+    self.queue.shift(DOWN)
     self.play(Write(self.queue))
 
     self.wait(1)
 
     self.paths = Text('Paths:\nS ⟶ 2', font_size=24)
     self.paths.next_to(graph, RIGHT)
-    self.paths.shift(DOWN)
+    self.paths.to_edge(UP)
+    self.paths.shift(3 * DOWN)
     self.play(Write(self.paths))
 
     self.change_queue(graph, ['S', '2'])
